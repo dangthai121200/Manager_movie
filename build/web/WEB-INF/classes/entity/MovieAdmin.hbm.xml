@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 10, 2021 5:11:15 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.MovieAdmin" table="movie_admin" catalog="manage_movie" optimistic-lock="version">
         <id name="idMovieAdmin" type="java.lang.Integer">
@@ -14,5 +14,11 @@
         <many-to-one name="movie" class="entity.Movie" fetch="select">
             <column name="id_movie" />
         </many-to-one>
+        <property name="dateAction" type="date">
+            <column name="dateAction" length="10" />
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="65535" />
+        </property>
     </class>
 </hibernate-mapping>

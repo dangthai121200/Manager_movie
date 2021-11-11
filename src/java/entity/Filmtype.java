@@ -1,5 +1,5 @@
 package entity;
-// Generated Nov 10, 2021 5:11:14 PM by Hibernate Tools 4.3.1
+// Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -47,6 +47,11 @@ public class Filmtype  implements java.io.Serializable {
     
     public void setMovies(Set movies) {
         this.movies = movies;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 

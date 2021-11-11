@@ -1,5 +1,5 @@
 package entity;
-// Generated Nov 10, 2021 5:11:14 PM by Hibernate Tools 4.3.1
+// Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1
 
 
 
@@ -41,6 +41,11 @@ public class CategoryMoive  implements java.io.Serializable {
     
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    @Override
+    public String toString() {
+        return category.getName();
     }
 
 

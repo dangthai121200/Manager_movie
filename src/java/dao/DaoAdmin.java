@@ -87,8 +87,8 @@ public class DaoAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICh
         names = session.createQuery("select username from Admin where username=:username").setParameter("username", username).list();
        session.getTransaction().commit();
         if(names.size()==0){
-            return  true;
+            return  false;
         }
-        return false;
+        return true;
     }
 }

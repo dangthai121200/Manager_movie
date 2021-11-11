@@ -35,18 +35,30 @@
                             </h1>
                             <form action="ControllerRegister" method="post">
                                 <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400">Họ và tên</span>
+                                    <input required type="text" name="fullname" 
+                                           value="<%
+                                               if (request.getAttribute("fullName") != null) {
+                                                   out.print(request.getAttribute("fullName").toString());
+                                               }
+                                           %>"
+                                           class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                           placeholder="Nguyễn Văn A"
+                                           />
+                                </label>
+                                <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Email</span>
                                     <input required type="email" name="username" 
                                            value="<%
-                                               if (request.getAttribute("username") != null) {
-                                                   out.print(request.getAttribute("username").toString());
+                                               if (request.getAttribute("userName") != null) {
+                                                   out.print(request.getAttribute("userName").toString());
                                                }
                                            %>"
                                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                            placeholder="abc123@gmail.com"
                                            />
                                     <%
-                                        if (request.getAttribute("error") != null&&request.getAttribute("error").toString().equals("2")) {                                          
+                                        if (request.getAttribute("errorUserName") != null&&request.getAttribute("errorUserName").toString().equals("errorusername")) {                                          
                                             out.print("<p class='text-sm font-medium text-red-600'> Tên đăng nhập trùng</p>");
                                         }
                                     %>
@@ -72,13 +84,14 @@
                                            />
                                 </label>
                                 <%
-                                    if (request.getAttribute("error") != null && request.getAttribute("error").toString().equals("1")) {
+                                    if (request.getAttribute("errorPassword") != null && request.getAttribute("errorPassword").toString().equals("errorpassword")) {
                                         out.print("<p class='text-sm font-medium text-red-600'> Mật không trùng nhau</p>");
                                     }
                                 %>
                                 <div class="flex mt-6 text-sm">
                                     <label class="flex items-center dark:text-gray-400">
                                         <input
+                                            name="checkbox"
                                             type="checkbox"
                                             class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                                             />
@@ -88,6 +101,11 @@
                                         </span>
                                     </label>
                                 </div>
+                                 <%
+                                    if (request.getAttribute("errorPolicy") != null && request.getAttribute("errorPolicy").toString().equals("errorpolicy")) {
+                                        out.print("<p class='text-sm font-medium text-red-600'> Vui lòng đồng ý với chính sách bảo mật</p>");
+                                    }
+                                %>
 
                                 <!-- You should use a button here, as the anchor is only used for the example  -->
                                 <input

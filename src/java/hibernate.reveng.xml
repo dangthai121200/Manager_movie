@@ -41,10 +41,10 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="manage_movie"/>
-  <table-filter match-name="filmtype"/>
   <table-filter match-name="category"/>
   <table-filter match-name="movie"/>
   <table-filter match-name="admin"/>
+  <table-filter match-name="filmtype"/>
   <table-filter match-name="category_moive"/>
   <table-filter match-name="movie_admin"/>
 </hibernate-reverse-engineering>

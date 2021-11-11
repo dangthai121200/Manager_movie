@@ -8,13 +8,12 @@ package controller;
 import entity.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ModelAdmin;
-
+import org.apache.commons.lang3.text.WordUtils;
 /**
  *
  * @author gaone
@@ -73,19 +72,30 @@ public class ControllerRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
+        //Lấy value từ form
+        String fullName=request.getParameter("fullname").toLowerCase();
+        String userName = request.getParameter("username");
+        String passWord = request.getParameter("password");  
         String returnPassword = request.getParameter("returnpassword");
-        boolean checkName = new ModelAdmin().checkName(username);
-        if (checkName) {
-            if (password.equals(returnPassword)) {
-                   saveAdmin(request,response,username,password);
-            } else {
-                checkPassword(request, response, username);
-            }
-        } else {
-            checkUserName(request, response);
+        String checkPolicy=request.getParameter("checkbox");
+          
+   
+        
+        //kiểm tra có lỗi hay không có thì chuyển hướng về lại trang register cùng các tham số fullName,userName,passWord và các lỗi
+        boolean checkErr=checkError(request,response,userName,passWord,returnPassword,checkPolicy);
+        if(checkErr){
+            request.setAttribute("fullName", fullName);
+            request.setAttribute("userName", userName);
+            request.getRequestDispatcher("createaccount.jsp").forward(request, response);
+        }else{
+            fullName=WordUtils.capitalizeFully(fullName);
+            saveAdmin(request,response,new Admin(fullName,userName,passWord));
         }
+            
     }
 
     /**
@@ -98,23 +108,49 @@ public class ControllerRegister extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void checkUserName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //error=2 username đã tồn tại
-        request.setAttribute("error", "2");
-        request.getRequestDispatcher("createaccount.jsp").forward(request, response);
+    //Kiểm tra tất cả các lỗi nếu có lỗi trả true,không có lỗi trả về false
+    private boolean checkError(HttpServletRequest request,HttpServletResponse response, String userName,String passWord,String returnPassword,String checkPolicy) throws ServletException, IOException{
+        checkUserName(request,response,userName);
+        checkPassword(request,response,passWord,returnPassword);
+        checkPolicy(request,response,checkPolicy);
+         if(request.getAttribute("errorUserName")!=null||request.getAttribute("errorPassword")!=null||request.getAttribute("errorPolicy")!=null){
+          return true;
+        }
+         return false;
     }
-
-    private void checkPassword(HttpServletRequest request, HttpServletResponse response, String username) throws ServletException, IOException {
-        //error=1 password không giống nhau
-        request.setAttribute("error", "1");
-        request.setAttribute("username", username);
-        request.getRequestDispatcher("createaccount.jsp").forward(request, response);
+    
+    //set lỗi username có đã có tồn tại
+    private void checkUserName(HttpServletRequest request, HttpServletResponse response,String userName) throws ServletException, IOException {
+         boolean checkUserName = new ModelAdmin().checkName(userName);
+         if(checkUserName){
+             //error=errorusername username đã tồn tại   
+             request.setAttribute("errorUserName", "errorusername");
+         }                  
+       
     }
-
-    private void saveAdmin(HttpServletRequest request, HttpServletResponse response, String username, String password) throws ServletException, IOException {
-        new ModelAdmin().add(new Admin(username, password));
-        request.setAttribute("username", username);
-        request.setAttribute("password", password);
+    
+    //set lỗi password không giống nhau
+    private void checkPassword(HttpServletRequest request, HttpServletResponse response,String passWord,String returnPassword) throws ServletException, IOException {
+       
+        if(passWord.equals(returnPassword)==false){
+             //error=errorpassword password không giống nhau
+              request.setAttribute("errorPassword", "errorpassword");
+        }      
+    }
+    
+    //set lỗi chưa check vào đồng ý với chính sách bảo mật
+    private void checkPolicy(HttpServletRequest request, HttpServletResponse response,String checkPolicy) throws ServletException, IOException {
+         if(checkPolicy==null){
+             //error=errorPolicy chưa check chính sách bảo mật  
+             request.setAttribute("errorPolicy", "errorpolicy");
+         }                  
+    }
+    
+    //Lưu thông tin admin và chuyển hướng về trang login
+    private void saveAdmin(HttpServletRequest request, HttpServletResponse response,Admin admin) throws ServletException, IOException {
+        new ModelAdmin().add(admin);
+        request.setAttribute("username", admin.getUsername());
+        request.setAttribute("password", admin.getPassword());
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

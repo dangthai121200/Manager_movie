@@ -1,5 +1,5 @@
 package entity;
-// Generated Nov 10, 2021 5:11:14 PM by Hibernate Tools 4.3.1
+// Generated Nov 11, 2021 2:40:31 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -24,12 +24,6 @@ public class Admin  implements java.io.Serializable {
     public Admin() {
     }
 
-    public Admin(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    
     public Admin(String fullName, String username, String password, Date birthday, String gmail, Integer sdt, Set movieAdmins) {
        this.fullName = fullName;
        this.username = username;
@@ -38,6 +32,12 @@ public class Admin  implements java.io.Serializable {
        this.gmail = gmail;
        this.sdt = sdt;
        this.movieAdmins = movieAdmins;
+    }
+
+    public Admin(String fullName, String username, String password) {
+        this.fullName = fullName;
+        this.username = username;
+        this.password = password;
     }
    
     public Integer getIdAdmin() {
@@ -95,6 +95,11 @@ public class Admin  implements java.io.Serializable {
     
     public void setMovieAdmins(Set movieAdmins) {
         this.movieAdmins = movieAdmins;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" + "idAdmin=" + idAdmin + ", fullName=" + fullName + ", username=" + username + ", password=" + password + ", birthday=" + birthday + ", gmail=" + gmail + ", sdt=" + sdt + '}';
     }
 
 
