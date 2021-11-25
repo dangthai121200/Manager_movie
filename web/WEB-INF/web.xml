@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
+        <servlet-name>ControllerPage</servlet-name>
+        <servlet-class>controller.ControllerPage</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ControllerMovie</servlet-name>
         <servlet-class>controller.ControllerMovie</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ControllerLogin</servlet-name>
-        <servlet-class>controller.ControllerLogin</servlet-class>
+        <servlet-name>ControllerAdmin</servlet-name>
+        <servlet-class>controller.ControllerAdmin</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ControllerRegister</servlet-name>
-        <servlet-class>controller.ControllerRegister</servlet-class>
-    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControllerPage</servlet-name>
+        <url-pattern>/ControllerPage</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControllerMovie</servlet-name>
         <url-pattern>/ControllerMovie</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ControllerLogin</servlet-name>
-        <url-pattern>/ControllerLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ControllerRegister</servlet-name>
-        <url-pattern>/ControllerRegister</url-pattern>
+        <servlet-name>ControllerAdmin</servlet-name>
+        <url-pattern>/ControllerAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

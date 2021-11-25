@@ -1,6 +1,9 @@
+
+<%@page import="model.Admin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<% Admin admin=(Admin)request.getSession().getAttribute("admin"); %>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
   <head>
      <c:import url="include/header.jsp"/>
@@ -37,7 +40,7 @@
             <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
             >
-             Thêm phim
+             Thông tin admin
             </h2>
             <!-- CTA -->
             <div
@@ -64,7 +67,9 @@
             >
               Thông Admin
             </h4>
-            <form action="" method="Post">
+            <form action="ControllerAdmin" method="Post">
+                <input type="hidden" name="form" value="update"/>
+                <input type="hidden" name="id" value="${admin.idAdmin}" />
              <div
               class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
@@ -73,14 +78,19 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Nhập tên"
+                  name="fullname"
+                  value="<c:out value="${admin.fullName}"/>"
                 />
               </label>
-      
+                   
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Ngày sinh</span>
                 <input
+                    type="date"
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Ngày sinh"
+                  name="birthday"
+                  value="<c:out value="${admin.birthday}"/>"
                 />
               </label>
                  <label class="block text-sm">
@@ -88,6 +98,8 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="số điện thoại"
+                  name="numberphone"
+                  value="<c:out value="${admin.sdt}"/>"
                 />
               </label>
                  <label class="block text-sm">
@@ -95,6 +107,8 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Gmail"
+                  name="gmail"
+                  value="<c:out value="${admin.gmail}"/>"
                 />
                   </label>
                  <label class="block text-sm">
@@ -102,6 +116,7 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="mật khẩu cũ"
+                  name="oldpassword"
                 />
                 </label>
                   <label class="block text-sm">
@@ -109,6 +124,7 @@
                 <input
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="mật khẩu mới"
+                  name="newpassword"
                 />
                 </label>
               <button  type="submit" class="flex items-center justify-between p-2 mb-5 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" style="margin-top: 20px">Cập nhật</button>
@@ -119,4 +135,7 @@
       </div>
     </div>
   </body>
+  <script>
+      $('.datepicker').datepicker()
+  </script>
 </html>

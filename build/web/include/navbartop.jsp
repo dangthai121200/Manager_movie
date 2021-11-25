@@ -3,7 +3,7 @@
     Created on : Oct 23, 2021, 4:56:05 PM
     Author     : gaone
 --%>
-<%@page import="entity.Admin"%>
+<%@page import="model.Admin"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
   <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
           <div
@@ -152,7 +152,7 @@
                     <li class="flex">
                       <a
                         class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="<%= request.getContextPath()%>/ControllerMovie?page=logout"
+                        href="<%= request.getContextPath()%>/ControllerPage?page=logout"
                       >
                         <svg
                           class="w-4 h-4 mr-3"

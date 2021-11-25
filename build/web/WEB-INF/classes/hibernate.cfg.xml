@@ -45,11 +45,11 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/manage_movie?zeroDateTimeBehavior=convertToNull&amp;characterEncoding=UTF-8</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="entity/Category.hbm.xml"/>
-    <mapping resource="entity/Filmtype.hbm.xml"/>
-    <mapping resource="entity/Movie.hbm.xml"/>
-    <mapping resource="entity/MovieAdmin.hbm.xml"/>
-    <mapping resource="entity/CategoryMoive.hbm.xml"/>
-    <mapping resource="entity/Admin.hbm.xml"/>
+    <mapping resource="model/Category.hbm.xml"/>
+    <mapping resource="model/Filmtype.hbm.xml"/>
+    <mapping resource="model/Movie.hbm.xml"/>
+    <mapping resource="model/MovieAdmin.hbm.xml"/>
+    <mapping resource="model/CategoryMoive.hbm.xml"/>
+    <mapping resource="model/Admin.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

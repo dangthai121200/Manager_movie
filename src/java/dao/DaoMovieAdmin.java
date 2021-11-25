@@ -5,7 +5,7 @@
  */
 package dao;
 
-import entity.MovieAdmin;
+import model.MovieAdmin;
 import imp.IAction;
 import java.util.List;
 import org.hibernate.Session;

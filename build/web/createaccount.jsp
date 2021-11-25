@@ -33,33 +33,41 @@
                                 >
                                 Tạo tài khoản
                             </h1>
-                            <form action="ControllerRegister" method="post">
+                            <form action="ControllerAdmin" method="post">
+                                <input type="hidden" name="form" value="register"/>
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Họ và tên</span>
                                     <input required type="text" name="fullname" 
                                            value="<%
-                                               if (request.getAttribute("fullName") != null) {
-                                                   out.print(request.getAttribute("fullName").toString());
+                                               if (request.getAttribute("fullname") != null) {
+                                                   out.print(request.getAttribute("fullname").toString());
                                                }
                                            %>"
                                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                            placeholder="Nguyễn Văn A"
                                            />
+                                    <%
+                                        if (request.getAttribute("errorFullname") != null && request.getAttribute("errorFullname").toString().equals("errorfullname")) {
+                                            out.print("<p class='text-sm font-medium text-red-600'>Vui lòng không nhập số và các kí tự đặc biệt</p>");
+                                        }
+                                    %>
                                 </label>
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Email</span>
                                     <input required type="email" name="username" 
                                            value="<%
-                                               if (request.getAttribute("userName") != null) {
-                                                   out.print(request.getAttribute("userName").toString());
+                                               if (request.getAttribute("username") != null) {
+                                                   out.print(request.getAttribute("username").toString());
                                                }
                                            %>"
                                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                            placeholder="abc123@gmail.com"
                                            />
                                     <%
-                                        if (request.getAttribute("errorUserName") != null&&request.getAttribute("errorUserName").toString().equals("errorusername")) {                                          
+                                        if (request.getAttribute("errorExistsUserName") != null && request.getAttribute("errorExistsUserName").toString().equals("eixtsusername")) {
                                             out.print("<p class='text-sm font-medium text-red-600'> Tên đăng nhập trùng</p>");
+                                        } else if (request.getAttribute("errorUserName") != null && request.getAttribute("errorUserName").toString().equals("errorusername")) {
+                                            out.print("<p class='text-sm font-medium text-red-600'>Tên đăng nhập không được để trống <br/>Và phải có dạng abc@gmail.com</p>");
                                         }
                                     %>
 
@@ -71,7 +79,20 @@
                                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                            placeholder="***************"
                                            type="password"
-                                           />
+                                           /> 
+                                     <%
+                                        if (request.getAttribute("errorPassword") != null && request.getAttribute("errorPassword").toString().equals("errorpassword")) {
+                                            out.print("<p class='text-sm font-medium text-red-600'> Vui lòng nhập mật khẩu đúng yêu cầu</p>");
+                                        } 
+                                    %>
+                                    <span style="color: blue">                   
+                                            <li> Mật khẩu phải chứa ít nhất một chữ số [0-9].</li>
+                                            <li> Mật khẩu phải chứa ít nhất một ký tự Latinh viết thường [a-z].</li>
+                                            <li> Mật khẩu phải chứa ít nhất một ký tự Latinh viết hoa [A-Z].</li>
+                                            <li> Mật khẩu phải chứa ít nhất một ký tự đặc biệt như ! @ # & ( ).</li>
+                                            <li> Mật khẩu phải có độ dài ít nhất 8 ký tự và tối đa 20 ký tự.</li>           
+                                    </span>
+                                                                       
                                 </label>
                                 <label class="block mt-4 text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">
@@ -82,17 +103,28 @@
                                            placeholder="***************"
                                            type="password"
                                            />
+                                     <%
+                                        if (request.getAttribute("errorPassword") != null && request.getAttribute("errorPassword").toString().equals("errorreturnpassword")) {
+                                            out.print("<p class='text-sm font-medium text-red-600'> Mật khẩu không trùng</p>");
+                                        } 
+                                    %>
                                 </label>
                                 <%
-                                    if (request.getAttribute("errorPassword") != null && request.getAttribute("errorPassword").toString().equals("errorpassword")) {
-                                        out.print("<p class='text-sm font-medium text-red-600'> Mật không trùng nhau</p>");
-                                    }
+//                                    if (request.getAttribute("errorPassword") != null && request.getAttribute("errorPassword").toString().equals("errorpassword")) {
+//                                        out.print("<p class='text-sm font-medium text-red-600'> Mật không trùng nhau</p>");
+//                                    }else if(request.getAttribute("errorLengthPassword")!=null&&request.getAttribute("errorPassword").toString().equals("errorlengthpassword")){
+//                                         out.print("<p class='text-sm font-medium text-red-600'> Mật khẩu phải có ít nhất 6 kí tự</p>");
+//                                    }
+//                                    else if(request.getAttribute("noPassword")!=null&&request.getAttribute("errorPassword").toString().equals("nopassword")){
+//                                         out.print("<p class='text-sm font-medium text-red-600'> Mật khẩu và nhập lại mật khẩu không được để trống</p>");
+//                                    }
                                 %>
                                 <div class="flex mt-6 text-sm">
                                     <label class="flex items-center dark:text-gray-400">
                                         <input
                                             name="checkbox"
                                             type="checkbox"
+                                            required
                                             class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                                             />
                                         <span class="ml-2">
@@ -101,11 +133,10 @@
                                         </span>
                                     </label>
                                 </div>
-                                 <%
-                                    if (request.getAttribute("errorPolicy") != null && request.getAttribute("errorPolicy").toString().equals("errorpolicy")) {
-                                        out.print("<p class='text-sm font-medium text-red-600'> Vui lòng đồng ý với chính sách bảo mật</p>");
-                                    }
-                                %>
+                                <%//                                    if (request.getAttribute("errorPolicy") != null && request.getAttribute("errorPolicy").toString().equals("errorpolicy")) {
+//                                        out.print("<p class='text-sm font-medium text-red-600'> Vui lòng đồng ý với chính sách bảo mật</p>");
+//                                    }
+%>
 
                                 <!-- You should use a button here, as the anchor is only used for the example  -->
                                 <input

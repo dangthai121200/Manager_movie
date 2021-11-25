@@ -5,7 +5,7 @@
  */
 package dao;
 
-import entity.Admin;
+import model.Admin;
 import imp.IAction;
 import java.sql.ResultSet;
 import java.util.List;
@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import util.HibernateMovie;
 import imp.ICheckLogin;
 import imp.ICheckName;
+import imp.ICheckPassword;
 import imp.IListName;
 
 /**
@@ -47,7 +48,10 @@ public class DaoAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICh
 
     @Override
     public Admin findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session.beginTransaction();
+        Admin admin=(Admin) session.get(Admin.class, id);
+        session.getTransaction().commit();
+        return admin;
     }
 
     @Override
@@ -79,9 +83,8 @@ public class DaoAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICh
 //        List<String> admins=new DaoAdmin(HibernateMovie.openSession()).getAllUserName();
 //        System.out.println(admins.toString());
 //    }
-
     @Override
-    public boolean checkName(String username) {
+    public boolean checkUserName(String username) {
         List<String> names=null;
         session.beginTransaction();
         names = session.createQuery("select username from Admin where username=:username").setParameter("username", username).list();

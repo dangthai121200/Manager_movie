@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/web/listmovie.jsp</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/web/home.jsp</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/entity/Movie.java</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/entity/Filmtype.java</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/entity/CategoryMoive.java</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/entity/Movie.hbm.xml</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/entity/Admin.java</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/entity/MovieAdmin.java</file>
-            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/entity/Category.java</file>
+            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/web/profile.jsp</file>
+            <file>file:/D:/School/nam4/DoAnChuyenNganh/Web_Manager_Movie/src/java/controller/ControllerAdmin.java</file>
         </group>
     </open-files>
 </project-private>

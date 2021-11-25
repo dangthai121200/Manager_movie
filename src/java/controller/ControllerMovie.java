@@ -5,20 +5,12 @@
  */
 package controller;
 
-import entity.Admin;
-import entity.Movie;
-import entity.MovieAdmin;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.ModelAdmin;
-import model.ModelMovie;
-import model.ModelMovieAdmin;
 
 /**
  *
@@ -43,10 +35,10 @@ public class ControllerMovie extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControllerMovie</title>");
+            out.println("<title>Servlet ControllerSaveMovie</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ControllerMovie at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ControllerSaveMovie at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,35 +56,7 @@ public class ControllerMovie extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-
-        String page = request.getParameter("page");
-        switch (page) {
-            case "home":
-                home(request, response);
-                break;
-            case "listmovie":
-                listMovie(request, response);
-                break;
-            case "addmovie":
-                addMovie(request, response);
-                break;
-            case "logout":
-                logOut(request, response);
-                break;
-            case "profile":
-                profile(request, response);
-                break;
-            case "createaccount":
-                createAccount(request, response);
-                break;
-            default:
-                request.getRequestDispatcher("404.jsp").forward(request, response);
-                break;
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -106,6 +70,23 @@ public class ControllerMovie extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
+        String nameMovie=request.getParameter("namemovie");
+        String[]categorys=request.getParameterValues("category");
+        String country=request.getParameter("country");
+        String diretor=request.getParameter("diretor");
+        String timeMovie=request.getParameter("timemovie");
+        String yearOfManufacture=request.getParameter("yearofmanufacture");
+        String status=request.getParameter("status");
+        String content=request.getParameter("content");
+               
+        int idFilmtype=Integer.parseInt(request.getParameter("filmtype"));
+             System.out.println(categorys.length);
+ 
+        
     }
 
     /**
@@ -117,38 +98,5 @@ public class ControllerMovie extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<MovieAdmin> list = new ModelMovieAdmin().getAll();
-        request.setAttribute("movieAdmins", list);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
-    }
-
-    private void listMovie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Movie>movies=new ModelMovie().getAll();
-        
-        request.setAttribute("movies",movies);
-        request.getRequestDispatcher("listmovie.jsp").forward(request, response);
-    }
-
-    private void addMovie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("addmovie.jsp").forward(request, response);
-    }
-
-    private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-    }
-
-    private void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
-    }
-
-    private void createAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<String> listUserNamse = new ModelAdmin().getAllUserName();
-        request.setAttribute("listusername", listUserNamse);
-        request.getRequestDispatcher("createaccount.jsp").forward(request, response);
-    }
 
 }

@@ -6,7 +6,7 @@
 package dao;
 
 import imp.IAction;
-import entity.Movie;
+import model.Movie;
 import java.util.List;
 import org.hibernate.Session;
 

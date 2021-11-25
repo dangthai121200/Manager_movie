@@ -32,7 +32,8 @@
                                 >
                                 Đăng nhập
                             </h1>
-                            <form action="ControllerLogin" method="post">
+                            <form action="ControllerAdmin" method="post">
+                                <input type="hidden" name="form" value="login"/>
                                 <label class="block text-sm">
                                     <span class="text-gray-700 dark:text-gray-400">Email</span>
                                     <input 
@@ -69,9 +70,7 @@
                                     />
                             </form>
                             <%
-                                String error = null;
-                                error = request.getParameter("error");
-                                if (error != null) {
+                                if (request.getAttribute("errorLogin")!=null&&request.getAttribute("errorLogin").toString().equals("errorlogin")) {
                                     out.print("<p class='text-sm font-medium text-red-600'> Tên đăng nhập hoặc mật khẩu sai</p>");
                                 }
                             %>

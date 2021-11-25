@@ -10,5 +10,5 @@ package imp;
  * @author gaone
  */
 public interface ICheckName {
-    boolean checkName(String username);
+    boolean checkUserName(String username);
 }
