@@ -14,17 +14,18 @@ import imp.ICheckName;
 import imp.ICheckPassword;
 import java.util.List;
 import imp.IListName;
+import java.util.Date;
 
 /**
  *
  * @author gaone
  */
-public class ServiceAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICheckName,ICheckPassword {
-     private DaoAdmin daoAdmin;
-    
+public class ServiceAdmin implements ICheckLogin<Admin>, IAction<Admin>, IListName, ICheckName, ICheckPassword {
+
+    private DaoAdmin daoAdmin;
 
     public ServiceAdmin() {
-        daoAdmin=new DaoAdmin(HibernateMovie.openSession());  
+        daoAdmin = new DaoAdmin(HibernateMovie.openSession());
     }
 
     @Override
@@ -52,9 +53,13 @@ public class ServiceAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void update(int id, String fullName, String password, Date birthday, String gmail, Integer sdt) {
+        daoAdmin.update(id, fullName, password, birthday, gmail, sdt);
+    }
+
     @Override
     public void add(Admin object) {
-       daoAdmin.add(object);
+        daoAdmin.add(object);
     }
 
     @Override
@@ -64,13 +69,13 @@ public class ServiceAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName
 
     @Override
     public boolean checkUserName(String username) {
-       return daoAdmin.checkUserName(username);
+        return daoAdmin.checkUserName(username);
     }
 
     @Override
     public boolean checkPassword(int id, String password) {
-        Admin admin=findById(id);
-        if(admin.getPassword().equals(password)){
+        Admin admin = findById(id);
+        if (admin.getPassword().equals(password)) {
             return true;
         }
         return false;

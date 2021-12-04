@@ -15,29 +15,32 @@ import imp.ICheckLogin;
 import imp.ICheckName;
 import imp.ICheckPassword;
 import imp.IListName;
+import java.util.Date;
 
 /**
  *
  * @author gaone
  */
-public class DaoAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICheckName {
-     private Session session;
+public class DaoAdmin implements ICheckLogin<Admin>, IAction<Admin>, IListName, ICheckName {
+
+    private Session session;
 
     public DaoAdmin(Session session) {
         this.session = session;
     }
-    
+
     @Override
     public Admin checkLogin(String username, String password) {
-        List<Admin> admins=null;
+        List<Admin> admins = null;
         session.beginTransaction();
         admins = session.createQuery("from Admin where username=:username").setParameter("username", username).list();
-       session.getTransaction().commit();
-        if(admins.size()>0&&admins.get(0).getPassword().equals(password)){
-            return  admins.get(0);
+        session.getTransaction().commit();
+        if (admins.size() > 0 && admins.get(0).getPassword().equals(password)) {
+            return admins.get(0);
         }
         return null;
-    } 
+    }
+
     @Override
     public List<Admin> getAll() {
         session.beginTransaction();
@@ -49,7 +52,7 @@ public class DaoAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICh
     @Override
     public Admin findById(int id) {
         session.beginTransaction();
-        Admin admin=(Admin) session.get(Admin.class, id);
+        Admin admin = (Admin) session.get(Admin.class, id);
         session.getTransaction().commit();
         return admin;
     }
@@ -61,7 +64,24 @@ public class DaoAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICh
 
     @Override
     public void update(Admin object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session.beginTransaction();
+        session.update(object);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void update(int id, String fullName, String password, Date birthday, String gmail, Integer sdt) {
+        session.beginTransaction();
+        Admin admin = (Admin) session.get(Admin.class, id);
+        admin.setFullName(fullName);
+        if(password.length()>0){
+               admin.setPassword(password);
+        }
+        admin.setBirthday(birthday);
+        admin.setGmail(gmail);
+        admin.setSdt(sdt);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
@@ -83,14 +103,15 @@ public class DaoAdmin implements ICheckLogin<Admin>,IAction<Admin>,IListName,ICh
 //        List<String> admins=new DaoAdmin(HibernateMovie.openSession()).getAllUserName();
 //        System.out.println(admins.toString());
 //    }
+
     @Override
     public boolean checkUserName(String username) {
-        List<String> names=null;
+        List<String> names = null;
         session.beginTransaction();
         names = session.createQuery("select username from Admin where username=:username").setParameter("username", username).list();
-       session.getTransaction().commit();
-        if(names.size()==0){
-            return  false;
+        session.getTransaction().commit();
+        if (names.size() == 0) {
+            return false;
         }
         return true;
     }
